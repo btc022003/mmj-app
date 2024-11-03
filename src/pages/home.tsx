@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import PageContainer from '../components/pge-container';
 function Home() {
+  const [open, setOpen] = useState(false);
   return (
     <PageContainer>
       <div className='content'></div>
@@ -15,7 +17,14 @@ function Home() {
           <p className='text-sm font-bold font-sans'>￥100</p>
         </div>
       </div>
-      <button className='btn my-8'>一键记账</button>
+      <button
+        className='btn my-8'
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        一键记账
+      </button>
       <span className='tips bg-black text-white py-2 px-4 shadow-md shadow-gray-500'>
         今日收支
       </span>
@@ -52,6 +61,8 @@ function Home() {
           </p>
         </div>
       </div>
+
+      {/* ModalForm */}
     </PageContainer>
   );
 }

@@ -1,5 +1,6 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
+import { ConfigProvider } from 'antd-mobile';
 import App from './App';
 import Home from './pages/home';
 import Report from './pages/report';
@@ -32,5 +33,7 @@ const router = createHashRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <RouterProvider router={router} />
+  <ConfigProvider>
+    <RouterProvider router={router} />
+  </ConfigProvider>
 );

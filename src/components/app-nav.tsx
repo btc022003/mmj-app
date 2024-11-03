@@ -40,7 +40,7 @@ function AppNav() {
   const { pathname } = useLocation();
 
   return (
-    <div className='my-nav flex items-center justify-around'>
+    <div className='my-nav flex items-center justify-around shadow-sm shadow-neutral-500'>
       <NavLinkItem
         href='/'
         pathName={pathname}

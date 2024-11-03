@@ -12,3 +12,13 @@ a.active {
 .tips {
   @apply p-2 bg-black text-white shadow shadow-gray-500 my-2;
 }
+.news-item{
+  @apply flex flex-col gap-2 p-2 shadow shadow-gray-300;
+}
+.news-item .title {
+  @apply text-xl;
+}
+
+.news-item .desc {
+  @apply text-gray-600;
+}
