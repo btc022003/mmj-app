@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Modal, Form, Input, TextArea, Selector } from 'antd-mobile';
 import PageContainer from '../components/pge-container';
 function Home() {
   const [open, setOpen] = useState(false);
@@ -63,6 +64,49 @@ function Home() {
       </div>
 
       {/* ModalForm */}
+      <Modal
+        title='记账'
+        visible={open}
+        showCloseButton={true}
+        onClose={() => setOpen(false)}
+        closeOnMaskClick={false}
+        content={
+          <Form>
+            <Form.Item label='金额' name='money'>
+              <Input placeholder='请输入金额' />
+            </Form.Item>
+            <Form.Item label='类型' name='info'>
+              <Selector
+                options={[
+                  { label: '收入', value: 'in' },
+                  { label: '支出', value: 'out' },
+                ]}
+                defaultValue={['out']}
+                onChange={(arr, extend) => console.log(arr, extend.items)}
+              />
+            </Form.Item>
+            <Form.Item label='分类' name='cate'>
+              <Selector
+                options={[
+                  { label: '消费', value: 'xiaofei' },
+                  { label: '餐饮', value: 'canyin' },
+                  { label: '购物', value: 'gouwu' },
+                  { label: '通信费', value: 'tongxinfei' },
+                  { label: '其他', value: 'qita' },
+                ]}
+                defaultValue={['tongxinfei']}
+                onChange={(arr, extend) => console.log(arr, extend.items)}
+              />
+            </Form.Item>
+            <Form.Item label='备注' name='remarks'>
+              <TextArea placeholder='请输入备注信息' />
+            </Form.Item>
+            <Form.Item>
+              <button className='btn'>保存</button>
+            </Form.Item>
+          </Form>
+        }
+      ></Modal>
     </PageContainer>
   );
 }

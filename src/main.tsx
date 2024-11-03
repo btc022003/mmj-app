@@ -1,6 +1,7 @@
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd-mobile';
+import zhCn from 'antd-mobile/es/locales/zh-CN';
 import App from './App';
 import Home from './pages/home';
 import Report from './pages/report';
@@ -33,7 +34,7 @@ const router = createHashRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <ConfigProvider>
+  <ConfigProvider locale={zhCn}>
     <RouterProvider router={router} />
   </ConfigProvider>
 );
