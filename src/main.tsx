@@ -1,39 +1,44 @@
-import { RouterProvider, createHashRouter } from 'react-router-dom';
-import ReactDOM from 'react-dom/client';
-import { ConfigProvider } from 'antd-mobile';
-import zhCn from 'antd-mobile/es/locales/zh-CN';
-import App from './App';
-import Home from './pages/home';
-import Report from './pages/report';
-import Discover from './pages/discover';
-import Log from './pages/log';
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { ConfigProvider } from "antd-mobile";
+import zhCn from "antd-mobile/es/locales/zh-CN";
+import { loadDB } from "./utils/db";
+import App from "./App";
+import Home from "./pages/home";
+import Report from "./pages/report";
+import Discover from "./pages/discover";
+import Log from "./pages/log";
+
+loadDB().then(() => {
+  console.log("db loaded");
+});
 
 const router = createHashRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/report',
+        path: "/report",
         element: <Report />,
       },
       {
-        path: '/discover',
+        path: "/discover",
         element: <Discover />,
       },
       {
-        path: '/logs',
+        path: "/logs",
         element: <Log />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ConfigProvider locale={zhCn}>
     <RouterProvider router={router} />
   </ConfigProvider>

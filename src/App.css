@@ -12,7 +12,7 @@ a.active {
 .tips {
   @apply p-2 bg-black text-white shadow shadow-gray-500 my-2;
 }
-.news-item{
+.news-item {
   @apply flex flex-col gap-2 p-2 shadow shadow-gray-300;
 }
 .news-item .title {
@@ -39,7 +39,12 @@ a.active {
 
   --adm-font-size-main: var(--adm-font-size-5);
 
-  --adm-font-family: -apple-system, blinkmacsystemfont, 'Helvetica Neue',
-  helvetica, segoe ui, arial, roboto, 'PingFang SC', 'miui',
-  'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+  --adm-font-family: -apple-system, blinkmacsystemfont, "Helvetica Neue",
+    helvetica, segoe ui, arial, roboto, "PingFang SC", "miui",
+    "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+
+.adm-center-popup-wrap {
+  width: 95%;
+  max-width: 100%;
 }
