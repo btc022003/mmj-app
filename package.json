@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-http": "^2.0.1",
     "@tauri-apps/plugin-shell": "^2",
     "@tauri-apps/plugin-sql": "^2.0.0",
     "antd-mobile": "^5.38.1",

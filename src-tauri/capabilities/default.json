@@ -9,6 +9,12 @@
     "sql:allow-load",
     "sql:allow-execute",
     "sql:default",
-    "sql:allow-select"
+    "sql:allow-select",
+    "http:default",
+    {
+      "identifier": "http:default",
+      "allow": [{ "url": "https://*.*.*" }],
+      "deny": [{ "url": "https://private.tauri.app" }]
+    }
   ]
 }
