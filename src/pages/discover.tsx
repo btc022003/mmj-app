@@ -20,11 +20,6 @@ function Discover() {
     setPage(page + 1);
   }
   useEffect(() => {
-    console.log(
-      `https://papi.jiemian.com/page/api/kuaixun/getlistmore?cid=1323kb&start_time=${Math.floor(
-        Date.now() / 1000
-      )}&page=${page}&tagid=1323`
-    );
     fetch(
       `https://papi.jiemian.com/page/api/kuaixun/getlistmore?cid=1323kb&start_time=${Math.floor(
         Date.now() / 1000

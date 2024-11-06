@@ -22,6 +22,16 @@ export async function loadDB() {
   }
 }
 
+/**
+ * 执行查询的sql语句
+ * @param sql
+ * @returns
+ */
+async function executeSelectSql<T>(sql: string) {
+  const db = await Database.load("sqlite:test.db");
+  return db.select<Promise<T>>(sql);
+}
+
 // loadDB();
 
 /**
@@ -34,9 +44,18 @@ export async function queryTradeLogs(
   startDate: string,
   endDate: string
 ): Promise<TradeLog[]> {
-  const db = await Database.load("sqlite:test.db");
   const SQL = `SELECT * from trade_logs WHERE created_at >= '${startDate}' and created_at<= '${endDate}' order by created_at desc`;
-  return db.select(SQL);
+  return executeSelectSql(SQL);
+}
+
+/**
+ * 根据开始结束时间获取区间内的统计数据的查询语句
+ * @param startDate 开始世界
+ * @param endDate   结束时间
+ * @returns
+ */
+function getReportSql(startDate: string, endDate: string) {
+  return `SELECT sum(amount) as sum_amount, cate from ( select * from trade_logs WHERE created_at >= '${startDate}' and created_at<= '${endDate}' ) GROUP BY cate`;
 }
 
 /**
@@ -49,17 +68,15 @@ export async function queryReportData() {
   const monthEnd = dayjs().endOf("month").format("YYYY-MM-DD") + " 23:59:59";
   const yearStart = dayjs().startOf("year").format("YYYY-MM-DD") + " 00:00:00";
   const yearEnd = dayjs().endOf("year").format("YYYY-MM-DD") + " 23:59:59";
-  const db = await Database.load("sqlite:test.db");
-  const SQLMONTH = `SELECT sum(amount) as sum_amount, cate from ( select * from trade_logs WHERE created_at >= '${monthStart}' and created_at<= '${monthEnd}' ) GROUP BY cate`;
-  const SQLYEAR = `SELECT sum(amount) as sum_amount, cate from ( select * from trade_logs WHERE created_at >= '${yearStart}' and created_at<= '${yearEnd}' ) GROUP BY cate`;
+  const SQLMONTH = getReportSql(monthStart, monthEnd);
+  const SQLYEAR = getReportSql(yearStart, yearEnd);
   // 查询月度数据
-  const monthData: { sum_amount: number; cate: string }[] = await db.select(
-    SQLMONTH
-  );
+  const monthData: { sum_amount: number; cate: string }[] =
+    await executeSelectSql(SQLMONTH);
+
   // 查询年度数据
-  const yearData: { sum_amount: number; cate: string }[] = await db.select(
-    SQLYEAR
-  );
+  const yearData: { sum_amount: number; cate: string }[] =
+    await executeSelectSql(SQLYEAR);
 
   return {
     monthData,
@@ -75,11 +92,10 @@ export async function queryHomePageData() {
   const monthStart =
     dayjs().startOf("month").format("YYYY-MM-DD") + " 00:00:00";
   const monthEnd = dayjs().endOf("month").format("YYYY-MM-DD") + " 23:59:59";
-  const db = await Database.load("sqlite:test.db");
-  const SQLMONTH = `SELECT sum(amount) as sum_amount, cate from ( select * from trade_logs WHERE created_at >= '${monthStart}' and created_at<= '${monthEnd}' ) GROUP BY cate`;
+  const SQLMONTH = getReportSql(monthStart, monthEnd);
   // 查询月度数据
   const resMonthData: Promise<{ sum_amount: number; cate: string }[]> =
-    db.select(SQLMONTH);
+    executeSelectSql(SQLMONTH);
   const todayListData = await queryTradeLogs(
     dayjs().format("YYYY-MM-DD") + " 00:00:00",
     dayjs().format("YYYY-MM-DD") + " 23:59:59"
